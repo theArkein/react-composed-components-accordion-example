@@ -1,30 +1,21 @@
-import Accordion from 'headless-components/Accordion';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { lazy } from 'react';
+import PageLayout from 'layouts/PageLayout';
+
+const ComposedComponentPattern = lazy(() => import('pages/composed-component-pattern'));
+const CleanConditionRendering = lazy(() => import('pages/clean-conditional-rendering'));
+const IndexPage = lazy(() => import('pages/index'));
 
 export default function App() {
    return (
-      <div>
-         <h1>Composition Pattern</h1>
-         <p>
-            Breaking components down into smaller, reusable parts that can be composed together to
-            form more complex UIs
-         </p>
-         <ul>
-            Advantages of composition pattern
-            <li>Redueced props in the Main component</li>
-            <li>Explicit Control of props by sub components</li>
-            <li>Clean Structure</li>
-            <li>Maintainable</li>
-         </ul>
-         <Accordion>
-            <Accordion.Title className="p-4 bg-zinc-200 font-semibold cursor-pointer">
-               Item 1
-            </Accordion.Title>
-            <Accordion.Body className="p-4 bg-zinc-100">
-               Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum id quia atque quam,
-               deleniti ducimus, amet consequatur, ipsam nemo repudiandae mollitia placeat quisquam
-               et fugiat? Assumenda tenetur necessitatibus facilis nisi?
-            </Accordion.Body>
-         </Accordion>
-      </div>
+      <BrowserRouter>
+         <Routes>
+            <Route path="/" element={<IndexPage />} />
+            <Route element={<PageLayout />}>
+               <Route path="/composed-component-pattern" element={<ComposedComponentPattern />} />
+               <Route path="/clean-conditional-rendering" element={<CleanConditionRendering />} />
+            </Route>
+         </Routes>
+      </BrowserRouter>
    );
 }
